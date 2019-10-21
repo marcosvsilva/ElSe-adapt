@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Dataset directory
+data/
+
 # Visual Studio cache/options directory
 .vs/
 
