@@ -1,3 +1,12 @@
+/*
+
+
+  The Code is created based on the method from the paper:
+  "Evaluation of State-of-the-Art Pupil Detection Algorithms on Remote Eye Images", W. Fuhl, D. Geisler, T. Santini, E. Kasneci
+  ACM International Joint Conference on Pervasive and Ubiquitous Computing: Adjunct publication -- PETMEI 2016
+ 
+
+*/
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
@@ -11,6 +20,7 @@
   "ElSe: Ellipse Selection for Robust Pupil Detection in Real-World Environments", W. Fuhl, T. C. Santini, T. C. Kübler, E. Kasneci
   ETRA 2016 : Eye Tracking Research and Application 2016
  
+  The code and the algorithm are for non-comercial use only.
 
 */
 
@@ -151,10 +161,6 @@ static void gen_blob_neu(int rad, cv::Mat *all_mat, cv::Mat *all_mat_neg){
 
 }
 
-
-
-
-
 static bool is_good_ellipse_evaluation(cv::RotatedRect *ellipse, cv::Mat *pic){
 
 
@@ -230,14 +236,11 @@ static bool is_good_ellipse_evaluation(cv::RotatedRect *ellipse, cv::Mat *pic){
 
 	val=ext_val-val;
 
-	if(val>10) return true;
+	if(val>-100) return true;
 	else return false;
 }
 
-
-
-
-static cv::RotatedRect blob_finder(cv::Mat *pic){
+static cv::RotatedRect blob_finder(cv::Mat *pic, float border){
 
 	cv::Point pos(0,0);
 	float abs_max=0;
@@ -246,8 +249,8 @@ static cv::RotatedRect blob_finder(cv::Mat *pic){
 	cv::Mat blob_mat, blob_mat_neg;
 
 
-	int fak_mum=5;
-	int fakk=pic->cols>pic->rows?(pic->cols/100)+1:(pic->rows/100)+1;
+	int fak_mum=4;
+	int fakk=12;
 
 	cv::Mat img;
 	mum(pic, &img, fak_mum);
@@ -278,12 +281,12 @@ static cv::RotatedRect blob_finder(cv::Mat *pic){
 	filter2D(img, result_neg, -1 , blob_mat_neg, cv::Point( -1, -1 ), 0, cv::BORDER_REPLICATE );
 	
 
-	for(int i=0; i<result.rows;i++){
+	for(int i=result.rows*(border); i<result.rows*(1.0-border);i++){
 		p_res=result.ptr<float>(i);
 		p_neg_res=result_neg.ptr<float>(i);
 		p_erg=erg.ptr<float>(i);
 
-		for(int j=0; j<result.cols;j++){
+		for(int j=result.cols*(border); j<result.cols*(1.0-border);j++){
 				p_neg_res[j]=(255.0f-p_neg_res[j]);
 				p_erg[j]=(p_neg_res[j])*(p_res[j]);
 		}

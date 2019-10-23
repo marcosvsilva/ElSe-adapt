@@ -1,28 +1,56 @@
+/*
 
+  The Code is created based on the method from the paper:
+  "Evaluation of State-of-the-Art Pupil Detection Algorithms on Remote Eye Images", W. Fuhl, D. Geisler, T. Santini, E. Kasneci
+  ACM International Joint Conference on Pervasive and Ubiquitous Computing: Adjunct publication -- PETMEI 2016
+ 
+
+*/
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 
 
-#include "beziersplines.h"
-#include "image_statistics.h"
+#include "blob_gen.h"
+
+
+namespace ELSE{
+
+
+static cv::RotatedRect run(cv::Mat input_img){
+
+
+	float rz_fakk=float(input_img.cols)/384.0;
+
+	cv::Mat pic=cv::Mat::zeros(input_img.rows/rz_fakk, input_img.cols/rz_fakk, CV_8UC1);
+	cv::resize(input_img, pic,pic.size());
+
+
+	cv::normalize(pic, pic, 0, 255, cv::NORM_MINMAX, CV_8U);
 
 
 
-float eval_area(std::vector<cv::Point2f> a1, std::vector<cv::Point2f> a2, std::vector<cv::Point2f> b1, std::vector<cv::Point2f> b2, cv::Mat frame);
+	double border=0.1;
 
 
-float eval_opening(std::vector<cv::Point2f> a1, std::vector<cv::Point2f> a2, cv::Mat frame);
+	cv::RotatedRect ellipse;
 
-//not used for evaluation
-float eval_meandist(std::vector<cv::Point2f> a1, std::vector<cv::Point2f> a2);
-
-
-namespace EYELIDDETECTION{
+	ellipse=blob_finder(&pic,border);
 
 
-eye eyelid(cv::Mat pic, double border);
+	ellipse.size.height=ellipse.size.height*rz_fakk;
+	ellipse.size.width=ellipse.size.width*rz_fakk;
 
+	ellipse.center.x=ellipse.center.x*rz_fakk;
+	ellipse.center.y=ellipse.center.y*rz_fakk;
+
+
+	return ellipse;
+	
+
+
+	
+}
 
 
 
