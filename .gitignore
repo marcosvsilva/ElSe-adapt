@@ -8,7 +8,7 @@ data/
 .vs/
 
 # Directories for debugger
-x64/Debug/
+else/x64/Debug/
 
 # Files built by Visual Studio
 *_i.c
