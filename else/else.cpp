@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 			break;
 
 		RotatedRect center = run(frame);
-		
+
 		Point2f vertices[4];
 		center.points(vertices);
 
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 
 		imshow("Frame", frame);
 
-		char c = (char) waitKey(25);
+		char c = (char)waitKey(25);
 		if (c == 27)
 			break;
 	}
