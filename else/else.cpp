@@ -38,17 +38,19 @@ int main(int argc, char** argv) {
 		if (frame.empty())
 			break;
 
-		RotatedRect center = run(frame);
+		Mat resize_img;
+		Size size(384, 288);
 
-		Point2f vertices[4];
-		center.points(vertices);
+		resize(frame, resize_img, size);
 
+		RotatedRect center = run(resize_img);
 		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-		ellipse(frame, center, color, 2, 8);
+		
+		ellipse(resize_img, center, color, 2, 8);
 
-		imshow("Frame", frame);
+		imshow("Out", resize_img);
 
-		char c = (char)waitKey(25);
+		char c = (char) waitKey(25);
 		if (c == 27)
 			break;
 	}
