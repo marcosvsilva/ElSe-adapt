@@ -18,21 +18,12 @@
     <ClCompile Include="else.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algo.h">
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
     <ClInclude Include="blob_gen.h">
-      <Filter>Arquivos de Origem</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Arquivos de Origem</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
   </ItemGroup>
