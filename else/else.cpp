@@ -8,7 +8,6 @@
 #include <opencv2/core/core.hpp>
 
 #include "algo.h"
-#include "stdafx.h"
 
 using namespace std;
 using namespace cv;
@@ -49,12 +48,9 @@ int main(int argc, char** argv) {
 
 		imshow("Frame", frame);
 
-		// Press  ESC on keyboard to exit
 		char c = (char) waitKey(25);
 		if (c == 27)
 			break;
-
-		//Sleep(100000);
 	}
 
 	cap.release();
