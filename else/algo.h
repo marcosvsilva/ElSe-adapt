@@ -4,24 +4,26 @@
 
 #include "blob_gen.h"
 
+using namespace cv;
+
 namespace ELSE{
 
-	static cv::RotatedRect run(cv::Mat input_img){
+	static RotatedRect run(Mat input_img){
 
 		float rz_fakk=float(input_img.cols)/384.0;
 
-		cv::Mat pic=cv::Mat::zeros(input_img.rows/rz_fakk, input_img.cols/rz_fakk, CV_8UC1);
-		cv::resize(input_img, pic,pic.size());
+		Mat pic=Mat::zeros(input_img.rows/rz_fakk, input_img.cols/rz_fakk, CV_8UC1);
+		resize(input_img, pic,pic.size());
 
 
-		cv::normalize(pic, pic, 0, 255, cv::NORM_MINMAX, CV_8U);
+		normalize(pic, pic, 0, 255, NORM_MINMAX, CV_8U);
 
 
 
 		double border=0.1;
 
 
-		cv::RotatedRect ellipse;
+		RotatedRect ellipse;
 
 		ellipse=blob_finder(&pic,border);
 
