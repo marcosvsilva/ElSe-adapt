@@ -7,6 +7,9 @@ data/
 # Visual Studio cache/options directory
 .vs/
 
+# Directories for debugger
+x64/Debug/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c
