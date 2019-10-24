@@ -43,6 +43,11 @@ int main(int argc, char** argv) {
 
 		resize(frame, resize_img, size);
 
+		kernel = np.ones(size, np.uint8)
+		erode = cv2.erode(median, kernel = kernel, iterations = 1)
+		dilate = cv2.dilate(erode, kernel = kernel, iterations = 1)
+		threshold = cv2.threshold(dilate, self.thresh_threshold, self.maxvalue_threshold, cv2.THRESH_BINARY)[1]
+
 		RotatedRect center = run(resize_img);
 		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
 		
