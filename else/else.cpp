@@ -38,26 +38,25 @@ int main(int argc, char** argv) {
 		if (frame.empty())
 			break;
 
-		Mat resize_img;
+		Mat img_resize;
 		Size size(384, 288);
-
-		resize(frame, resize_img, size);
-
-		kernel = np.ones(size, np.uint8)
-		erode = cv2.erode(median, kernel = kernel, iterations = 1)
-		dilate = cv2.dilate(erode, kernel = kernel, iterations = 1)
-		threshold = cv2.threshold(dilate, self.thresh_threshold, self.maxvalue_threshold, cv2.THRESH_BINARY)[1]
-
-		RotatedRect center = run(resize_img);
-		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+		resize(frame, img_resize, size);
 		
-		ellipse(resize_img, center, color, 2, 8);
+		//Mat kernel = Mat::zeros(5, 5, CV_8UC1);*/
+		//dilate(filter_image, filter_image, kernel, Point(-1, -1), 3);
+		//erode(filter_image, filter_image, kernel, Point(-1, -1), 6);
+		//threshold(filter_image, filter_image, 25, 255, THRESH_BINARY);
 
-		imshow("Out", resize_img);
+		RotatedRect center = run(img_resize);
 
-		char c = (char) waitKey(25);
-		if (c == 27)
-			break;
+		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+		ellipse(img_resize, center, color, 2, 8);
+
+		//imshow("Out", img_resize);
+
+		//char c = (char) waitKey(25);
+		//if (c == 27)
+		//	break;
 	}
 
 	cap.release();
