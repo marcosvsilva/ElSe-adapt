@@ -1,6 +1,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
+#include "support.h"
 
 using namespace cv;
 
@@ -213,9 +214,7 @@ namespace ELSE {
 		Mat img;
 		mum(pic, &img, fak_mum);
 		Mat erg = Mat::zeros(img.rows, img.cols, CV_32FC1);
-		
-		imshow("Out", img);
-		char c = (char)waitKey(25);
+		//show(img);
 
 		Mat result, result_neg;
 
