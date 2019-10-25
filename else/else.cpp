@@ -1,10 +1,5 @@
-#include <string>
 #include <iostream>
-#include <dirent.h>
-#include <sys/types.h>
 
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 
 #include "algo.h"
@@ -52,11 +47,10 @@ int main(int argc, char** argv) {
 		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
 		ellipse(img_resize, center, color, 2, 8);
 
-		//imshow("Out", img_resize);
-
-		//char c = (char) waitKey(25);
-		//if (c == 27)
-		//	break;
+		show(img_resize);
+		char c = (char) waitKey(25);
+		if (c == 27)
+			break;
 	}
 
 	cap.release();
