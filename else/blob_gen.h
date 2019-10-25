@@ -213,6 +213,9 @@ namespace ELSE {
 		Mat img;
 		mum(pic, &img, fak_mum);
 		Mat erg = Mat::zeros(img.rows, img.cols, CV_32FC1);
+		
+		imshow("Out", img);
+		char c = (char)waitKey(25);
 
 		Mat result, result_neg;
 
