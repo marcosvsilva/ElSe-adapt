@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <opencv2/core/core.hpp>
+#include <opencv2/core/affine.hpp>
 
 #include "algo.h"
 
@@ -10,17 +11,17 @@ using namespace ELSE;
 
 RNG rng(12345);
 
-bool video = true;
+bool video = false;
 
 int main(int argc, char** argv) {
 
-	if (video) {
+	if (argc != 2)
+	{
+		cout << "Database directory not definid!" << endl;
+		return -1;
+	}
 
-		if (argc != 2)
-		{
-			cout << "Database directory not definid!" << endl;
-			return -1;
-		}
+	if (video) {
 
 		VideoCapture cap(argv[1]);
 
@@ -41,11 +42,6 @@ int main(int argc, char** argv) {
 			Size size(384, 288);
 			resize(frame, img_resize, size);
 
-			//Mat kernel = Mat::zeros(5, 5, CV_8UC1);*/
-			//dilate(filter_image, filter_image, kernel, Point(-1, -1), 3);
-			//erode(filter_image, filter_image, kernel, Point(-1, -1), 6);
-			//threshold(filter_image, filter_image, 25, 255, THRESH_BINARY);
-
 			RotatedRect center = run(img_resize);
 
 			Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
@@ -61,7 +57,24 @@ int main(int argc, char** argv) {
 		destroyAllWindows();
 	}
 	else {
+		Mat img = imread(argv[1]);
+		Mat img2 = imread("C:\\ProjetosMarcos\\ElSeAdapt\\data\\Images\\1_new.png");	
 
+		RotatedRect center = run(img);
+		
+		RotatedRect center2 = run(img);
+
+		Scalar color = Scalar(rng.uniform(0, 0), rng.uniform(0, 0), rng.uniform(0, 0));
+		ellipse(img, center, color, 2, 8);
+
+		/*Scalar color2 = Scalar(rng.uniform(0, 150), rng.uniform(0, 150), rng.uniform(0, 150));
+		ellipse(img2, center2, color2, 2, 8);*/
+
+		namedWindow("Display window", WINDOW_AUTOSIZE);
+		imshow("Display window", img);
+		waitKey(0);
+
+		return 0;
 	}
 
 	return 0;
