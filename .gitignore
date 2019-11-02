@@ -7,6 +7,9 @@ data/
 # Visual Studio cache/options directory
 .vs/
 
+# Save olds
+olds/
+
 # Directories for debugger
 else/x64/Debug/
 
